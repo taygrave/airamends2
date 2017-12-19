@@ -30,6 +30,7 @@
   "author": "taygrave",
   "license": "NA",
   "dependencies": {
+    "axios": "0.17.1",
     "object-assign": "4.1.0",
     "react": "16.0.0",
     "react-dom": "16.0.0",
@@ -86,6 +87,7 @@
     "react-hot-loader": "3.0.0-beta.6",
     "react-test-renderer": "16.0.0",
     "redux-immutable-state-invariant": "2.0.0",
+    "redux-mock-store": "1.3.0",
     "replace": "0.3.0",
     "rimraf": "2.6.1",
     "sass-loader": "6.0.6",
@@ -166,6 +168,7 @@
       "describe",
       "expect",
       "it",
+      "Dispatch",
       "React$Element"
     ],
     "ignore": [
