@@ -1,26 +1,80 @@
 // @flow
+import gapi from 'gapi-client'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { initAuthGoogle } from '../actions'
+import config from '../config'
+
+const {
+  googleClientId,
+  googleDiscoveryDocs,
+  googleScopes
+} = config
 
 type Props = {
   initAuthGoogle: typeof initAuthGoogle
 }
 
-class HomePage extends Component<Props, {}> {
-  authGoogle = () => {
-    const { initAuthGoogle } = this.props
+type State = {
+  isSignedIn: boolean
+}
 
-    initAuthGoogle()
+class HomePage extends Component<Props, State> {
+  constructor (props: Props) {
+    super(props)
+    console.log('path?', googleClientId)
+    this.state = {
+      isSignedIn: false
+    }
+  }
+
+  componentDidMount () {
+    gapi.load('client:auth2', this.initializeGoogle)
+  }
+
+  initializeGoogle = async () => {
+    try {
+      await gapi.client.init({
+        discoveryDocs: googleDiscoveryDocs,
+        clientId: googleClientId,
+        scope: googleScopes
+      })
+
+      // Listen for sign-in state changes.
+      gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus)
+
+      // Handle the initial sign-in state.
+      this.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+    } catch (e) {
+      console.log('ERROR', e)
+    }
+  }
+
+  updateSigninStatus = (isSignedIn: boolean) => {
+    this.setState({ isSignedIn })
+  }
+
+  handleAuthClick = () => {
+    const { isSignedIn } = this.state
+    if (isSignedIn) {
+      gapi.auth2.getAuthInstance().signOut()
+    } else {
+      gapi.auth2.getAuthInstance().signIn()
+    }
   }
 
   render () {
+    const { isSignedIn } = this.state
+
     return (
-      <div>
+      <div className='home'>
         <h1>Air Amends 2222</h1>
-        <button onClick={this.authGoogle}>
-          Click Me
+        <button
+          className='btn'
+          onClick={this.handleAuthClick}
+        >
+          {isSignedIn ? 'Sign Out' : 'Authorize'}
         </button>
       </div>
     )

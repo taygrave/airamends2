@@ -17,8 +17,8 @@ type Props = {
 class App extends Component<Props, {}> {
   render () {
     return (
-      <div>
-        <div>
+      <div className='root'>
+        <div className='navbar'>
           <NavLink exact to='/'>Home</NavLink>
         </div>
         <Switch>
