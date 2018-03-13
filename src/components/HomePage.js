@@ -4,13 +4,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { initAuthGoogle } from '../actions'
-import config from '../config'
-
-const {
+import {
   googleClientId,
   googleDiscoveryDocs,
   googleScopes
-} = config
+} from '../config'
 
 type Props = {
   initAuthGoogle: typeof initAuthGoogle
@@ -23,7 +21,7 @@ type State = {
 class HomePage extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
-    console.log('path?', googleClientId)
+
     this.state = {
       isSignedIn: false
     }
