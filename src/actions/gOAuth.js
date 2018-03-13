@@ -3,8 +3,9 @@
 
 import { type AnyAction } from '../types'
 
-export const initAuthGoogle = () => async (dispatch: Dispatch<AnyAction>) => {
+export const updateAuthStatus = (isSignedIn: boolean) => (dispatch: Dispatch<AnyAction>) => {
   return dispatch({
-    type: 'INIT_AUTH_GOOGLE'
+    type: 'UPDATE_AUTH_STATUS',
+    isSignedIn
   })
 }

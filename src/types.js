@@ -8,9 +8,20 @@
 export type Element = string | React$Element<any> | Array<React$Element<any>>
 
 // REACT ACTIONS
-export type InitAuthGoogle = {
-  type: 'INIT_AUTH_GOOGLE'
+export type UpdateAuthStatus = {
+  type: 'UPDATE_AUTH_STATUS',
+  isSignedIn: boolean
 }
 
 export type AnyAction =
-  InitAuthGoogle
+  UpdateAuthStatus
+
+// STATES
+
+export type GoogleAuthStatusState = {
+  isSignedIn: boolean
+}
+
+export type State = {
+  googleAuthStatus: GoogleAuthStatusState
+}
