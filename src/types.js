@@ -8,12 +8,17 @@
 export type Element = string | React$Element<any> | Array<React$Element<any>>
 
 // REACT ACTIONS
+export type AuthGoogle = {
+  type: 'AUTH_GOOGLE'
+}
+
 export type UpdateAuthStatus = {
   type: 'UPDATE_AUTH_STATUS',
-  isSignedIn: boolean
+  newStatus: boolean
 }
 
 export type AnyAction =
+  AuthGoogle |
   UpdateAuthStatus
 
 // STATES

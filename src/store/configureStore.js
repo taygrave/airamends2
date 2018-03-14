@@ -4,13 +4,20 @@ import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 // 'routerMiddleware': the new way of storing route changes with redux middleware since rrV4.
 import { routerMiddleware } from 'react-router-redux'
+
 import rootReducer from '../reducers'
+import googleAuthStatus from '../middleware/google-auth'
+
+const myCustomMiddlewares = [
+  googleAuthStatus
+]
+
 export const history = createHistory()
 function configureStoreProd (initialState) {
   const reactRouterMiddleware = routerMiddleware(history)
   const middlewares = [
     // Add other middleware on this line...
-
+    ...myCustomMiddlewares,
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/gaearon/redux-thunk#injecting-a-custom-argument
     thunk,
@@ -27,7 +34,7 @@ function configureStoreDev (initialState) {
   const reactRouterMiddleware = routerMiddleware(history)
   const middlewares = [
     // Add other middleware on this line...
-
+    ...myCustomMiddlewares,
     // Redux middleware that spits an error on you when you try to mutate your state either inside a dispatch or between dispatches.
     reduxImmutableStateInvariant(),
 

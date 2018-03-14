@@ -1,3 +1,3 @@
 // @flow
 
-export * from './gOAuth'
+export * from './google-auth'

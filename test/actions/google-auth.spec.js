@@ -10,15 +10,15 @@ const mockStore = configureStore([ thunk ])
 describe('Actions: Google OAuth', () => {
   it('is true', async () => {
     const store = mockStore({})
-    const isSignedIn = true
+    const newStatus = true
     const expected = [
       {
         type: 'UPDATE_AUTH_STATUS',
-        isSignedIn
+        newStatus
       }
     ]
 
-    await store.dispatch(updateAuthStatus(isSignedIn))
+    await store.dispatch(updateAuthStatus({ newStatus }))
     assert.deepEqual(expected, store.getActions())
   })
 })

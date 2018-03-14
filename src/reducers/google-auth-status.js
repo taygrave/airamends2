@@ -4,13 +4,16 @@ import {
   type GoogleAuthStatusState as State
 } from '../types'
 
+export const getAuthStatus = (state: State) => state.isSignedIn
+
 export default (state: State = { isSignedIn: false }, action: AnyAction): State => {
   switch (action.type) {
     case 'UPDATE_AUTH_STATUS': {
-      const { isSignedIn } = action
+      const { newStatus } = action
+
       return {
         ...state,
-        isSignedIn
+        isSignedIn: newStatus
       }
     }
     default:
@@ -18,4 +21,4 @@ export default (state: State = { isSignedIn: false }, action: AnyAction): State 
   }
 }
 
-export const getAuthStatus = (state: State) => state
+// concerns: how do we know it worked? need another 'UPDATED_AUTH_STATUS' or something
