@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import {
   authGoogle,
-  updateAuthStatus
+  toggleGoogleSignin
 } from '../actions'
 import {
   getAuthStatus
@@ -13,7 +13,7 @@ import {
 type Props = {
   authGoogle: typeof authGoogle,
   isGoogleAuthed: boolean,
-  updateAuthStatus: typeof updateAuthStatus
+  toggleGoogleSignin: typeof toggleGoogleSignin
 }
 
 class HomePage extends Component<Props> {
@@ -21,11 +21,11 @@ class HomePage extends Component<Props> {
     const {
       authGoogle,
       isGoogleAuthed,
-      updateAuthStatus
+      toggleGoogleSignin
     } = this.props
 
     if (isGoogleAuthed) {
-      updateAuthStatus({ newStatus: !isGoogleAuthed })
+      toggleGoogleSignin()
     } else {
       authGoogle()
     }
@@ -56,6 +56,6 @@ export default connect(
   }),
   {
     authGoogle,
-    updateAuthStatus
+    toggleGoogleSignin
   }
 )(HomePage)

@@ -4,13 +4,14 @@
 import { type AnyAction } from '../types'
 
 export const authGoogle = () => (dispatch: Dispatch<AnyAction>) =>
-dispatch({
-  type: 'AUTH_GOOGLE'
-})
+dispatch({ type: 'AUTH_GOOGLE' })
 
-type UpdateAuthStatusArgs = { newStatus: boolean }
-export const updateAuthStatus = ({ newStatus }: UpdateAuthStatusArgs) => (dispatch: Dispatch<AnyAction>) =>
+export const toggleGoogleSignin = () => (dispatch: Dispatch<AnyAction>) =>
+dispatch({ type: 'TOGGLE_GOOGLE_SIGNIN' })
+
+type ToggledGoogleSigninArgs = { isAuthed: boolean }
+export const toggledGoogleSignin = ({ isAuthed }: ToggledGoogleSigninArgs) => (dispatch: Dispatch<AnyAction>) =>
 dispatch({
-  type: 'UPDATE_AUTH_STATUS',
-  newStatus
+  type: 'TOGGLED_GOOGLE_SIGNIN',
+  isAuthed
 })

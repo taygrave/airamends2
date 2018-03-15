@@ -12,19 +12,24 @@ export type AuthGoogle = {
   type: 'AUTH_GOOGLE'
 }
 
-export type UpdateAuthStatus = {
-  type: 'UPDATE_AUTH_STATUS',
-  newStatus: boolean
+export type ToggleGoogleSignin = {
+  type: 'TOGGLE_GOOGLE_SIGNIN',
+}
+
+export type UpdatedAuthStatus = {
+  type: 'TOGGLED_GOOGLE_SIGNIN',
+  isAuthed: boolean
 }
 
 export type AnyAction =
   AuthGoogle |
-  UpdateAuthStatus
+  ToggleGoogleSignin |
+  UpdatedAuthStatus
 
 // STATES
 
 export type GoogleAuthStatusState = {
-  isSignedIn: boolean
+  isAuthed: boolean
 }
 
 export type State = {

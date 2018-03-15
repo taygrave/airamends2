@@ -3,22 +3,22 @@ import assert from 'assert'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import { updateAuthStatus } from '../../src/actions'
+import { toggleGoogleSignin } from '../../src/actions'
 
 const mockStore = configureStore([ thunk ])
 
 describe('Actions: Google OAuth', () => {
   it('is true', async () => {
     const store = mockStore({})
-    const newStatus = true
+    const shouldBeSignedIn = true
     const expected = [
       {
-        type: 'UPDATE_AUTH_STATUS',
-        newStatus
+        type: 'TOGGLE_GOOGLE_SIGNIN',
+        shouldBeSignedIn
       }
     ]
 
-    await store.dispatch(updateAuthStatus({ newStatus }))
+    await store.dispatch(toggleGoogleSignin())
     assert.deepEqual(expected, store.getActions())
   })
 })
