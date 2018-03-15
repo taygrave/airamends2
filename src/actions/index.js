@@ -1,3 +1,3 @@
 // @flow
 
-export * from './google-auth'
+export * from './google-status'

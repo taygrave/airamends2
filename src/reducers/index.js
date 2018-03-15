@@ -1,12 +1,12 @@
 // @flow
 import { combineReducers } from 'redux'
 
-import googleAuthStatus, * as fromGoogleAuthStatus from './google-auth-status'
+import googleStatus, * as fromGoogleStatus from './google-status'
 
 import { type State } from '../types'
 
 const rootReducer = combineReducers({
-  googleAuthStatus
+  googleStatus
 })
 
 export default rootReducer
@@ -14,4 +14,7 @@ export default rootReducer
 // SELECTORS: coupled to the state shape
 // practice as recommended by https://egghead.io/lessons/javascript-redux-colocating-selectors-with-reducers
 export const getAuthStatus = (state: State) =>
-  fromGoogleAuthStatus.getAuthStatus(state.googleAuthStatus)
+  fromGoogleStatus.getAuthStatus(state.googleStatus)
+
+export const getSigninStatus = (state: State) =>
+  fromGoogleStatus.getSigninStatus(state.googleStatus)

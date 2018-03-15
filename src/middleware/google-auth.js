@@ -2,7 +2,7 @@
 import gapi from 'gapi-client'
 import { type Middleware } from 'redux'
 
-import { toggleGoogleSignin } from '../actions/google-auth'
+import { toggleGoogleSignin } from '../actions/google-status'
 import {
   googleClientId,
   googleDiscoveryDocs,
@@ -14,13 +14,10 @@ import {
   type State
 } from '../types'
 
-// TODO: Consider moving google signin stuff back into the actions
-// once we can differentiate between an auth and a sign on
-
 export default ((store) => (next) => (action) => {
   const result = next(action)
   const state = store.getState()
-  const { googleAuthStatus: { isAuthed } } = state
+  const { googleStatus: { isAuthed } } = state
 
   const initializeGoogle = async () => {
     try {
@@ -33,7 +30,11 @@ export default ((store) => (next) => (action) => {
       gapi.auth2.getAuthInstance().isSignedIn.listen((toggleGoogleSignin))
 
       // Handle the initial sign-in state.
-      store.dispatch({ type: 'TOGGLE_GOOGLE_SIGNIN' })
+      gapi.auth2.getAuthInstance().signIn()
+
+      // TODO: read google docs to figure out how to make sure this
+      // doesn't dispath until actually definitely authed
+      store.dispatch({ type: 'AUTHED_GOOGLE' })
     } catch (e) {
       console.log('ERROR', e)
     }
@@ -41,20 +42,8 @@ export default ((store) => (next) => (action) => {
 
   switch (action.type) {
     case 'AUTH_GOOGLE': {
-      gapi.load('client:auth2', initializeGoogle)
-      return result
-    }
-    case 'TOGGLE_GOOGLE_SIGNIN': {
-      try {
-        if (isAuthed) {
-          gapi.auth2.getAuthInstance().signOut()
-        } else {
-          gapi.auth2.getAuthInstance().signIn()
-        }
-
-        store.dispatch({ type: 'TOGGLED_GOOGLE_SIGNIN', isAuthed: !isAuthed })
-      } catch (e) {
-        console.log('ERROR', e)
+      if (!isAuthed) {
+        gapi.load('client:auth2', initializeGoogle)
       }
       return result
     }

@@ -7,12 +7,14 @@ import {
   toggleGoogleSignin
 } from '../actions'
 import {
-  getAuthStatus
+  getAuthStatus,
+  getSigninStatus
 } from '../selectors'
 
 type Props = {
   authGoogle: typeof authGoogle,
-  isGoogleAuthed: boolean,
+  isAuthedGoogle: boolean,
+  isSignedInToGoogle: boolean,
   toggleGoogleSignin: typeof toggleGoogleSignin
 }
 
@@ -20,11 +22,11 @@ class HomePage extends Component<Props> {
   handleAuthClick = () => {
     const {
       authGoogle,
-      isGoogleAuthed,
+      isAuthedGoogle,
       toggleGoogleSignin
     } = this.props
 
-    if (isGoogleAuthed) {
+    if (isAuthedGoogle) {
       toggleGoogleSignin()
     } else {
       authGoogle()
@@ -32,7 +34,10 @@ class HomePage extends Component<Props> {
   }
 
   render () {
-    const { isGoogleAuthed } = this.props
+    const {
+      isAuthedGoogle,
+      isSignedInToGoogle
+    } = this.props
 
     return (
       <div className='home'>
@@ -41,7 +46,12 @@ class HomePage extends Component<Props> {
           className='btn'
           onClick={this.handleAuthClick}
         >
-          {isGoogleAuthed ? 'Sign Out' : 'Authorize'}
+          {!isAuthedGoogle
+            ? 'Authorize'
+            : isSignedInToGoogle
+              ? 'Sign Out'
+              : 'Sign In'
+          }
         </button>
       </div>
     )
@@ -52,7 +62,8 @@ export const Unconnected = HomePage
 
 export default connect(
   (state) => ({
-    isGoogleAuthed: getAuthStatus(state)
+    isAuthedGoogle: getAuthStatus(state),
+    isSignedInToGoogle: getSigninStatus(state)
   }),
   {
     authGoogle,

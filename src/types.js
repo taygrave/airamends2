@@ -7,9 +7,13 @@
 
 export type Element = string | React$Element<any> | Array<React$Element<any>>
 
-// REACT ACTIONS
+// ACTIONS
 export type AuthGoogle = {
   type: 'AUTH_GOOGLE'
+}
+
+export type AuthedGoogle = {
+  type: 'AUTHED_GOOGLE'
 }
 
 export type ToggleGoogleSignin = {
@@ -18,20 +22,21 @@ export type ToggleGoogleSignin = {
 
 export type UpdatedAuthStatus = {
   type: 'TOGGLED_GOOGLE_SIGNIN',
-  isAuthed: boolean
+  isSignedIn: boolean
 }
 
 export type AnyAction =
   AuthGoogle |
+  AuthedGoogle |
   ToggleGoogleSignin |
   UpdatedAuthStatus
 
 // STATES
-
 export type GoogleAuthStatusState = {
-  isAuthed: boolean
+  isAuthed: boolean,
+  isSignedIn: boolean
 }
 
 export type State = {
-  googleAuthStatus: GoogleAuthStatusState
+  googleStatus: GoogleAuthStatusState
 }

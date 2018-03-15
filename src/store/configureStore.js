@@ -6,10 +6,10 @@ import createHistory from 'history/createBrowserHistory'
 import { routerMiddleware } from 'react-router-redux'
 
 import rootReducer from '../reducers'
-import googleAuthStatus from '../middleware/google-auth'
+import googleStatus from '../middleware/google-auth'
 
 const myCustomMiddlewares = [
-  googleAuthStatus
+  googleStatus
 ]
 
 export const history = createHistory()
