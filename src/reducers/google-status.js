@@ -21,16 +21,12 @@ export default (state: State = initialState, action: AnyAction): State => {
       }
     }
     case 'TOGGLED_GOOGLE_SIGNIN': {
-      const { isSignedIn } = action
-
       return {
         ...state,
-        isSignedIn
+        isSignedIn: !state.isSignedIn
       }
     }
     default:
       return state
   }
 }
-
-// concerns: how do we know it worked? need another 'TOGGLED_GOOGLE_SIGNIN' or something

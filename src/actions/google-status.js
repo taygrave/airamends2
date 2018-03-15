@@ -22,15 +22,11 @@ export const toggleGoogleSignin = () =>
       gapi.auth2.getAuthInstance().signIn()
     }
 
-    dispatch(toggledGoogleSignin({ isSignedIn: !isSignedIn }))
+    dispatch(toggledGoogleSignin())
   } catch (e) {
     console.log('ERROR', e)
   }
 }
 
-type ToggledGoogleSigninArgs = { isSignedIn: boolean }
-export const toggledGoogleSignin = ({ isSignedIn }: ToggledGoogleSigninArgs) => (dispatch: Dispatch<AnyAction>) =>
-dispatch({
-  type: 'TOGGLED_GOOGLE_SIGNIN',
-  isSignedIn
-})
+export const toggledGoogleSignin = () => (dispatch: Dispatch<AnyAction>) =>
+dispatch({ type: 'TOGGLED_GOOGLE_SIGNIN' })

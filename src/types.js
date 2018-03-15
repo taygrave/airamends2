@@ -8,24 +8,18 @@
 export type Element = string | React$Element<any> | Array<React$Element<any>>
 
 // ACTIONS
-export type AuthGoogle = {
-  type: 'AUTH_GOOGLE'
-}
+export type Init = { type: '@@INIT' }
 
-export type AuthedGoogle = {
-  type: 'AUTHED_GOOGLE'
-}
+export type AuthGoogle = { type: 'AUTH_GOOGLE' }
 
-export type ToggleGoogleSignin = {
-  type: 'TOGGLE_GOOGLE_SIGNIN',
-}
+export type AuthedGoogle = { type: 'AUTHED_GOOGLE' }
 
-export type UpdatedAuthStatus = {
-  type: 'TOGGLED_GOOGLE_SIGNIN',
-  isSignedIn: boolean
-}
+export type ToggleGoogleSignin = { type: 'TOGGLE_GOOGLE_SIGNIN' }
+
+export type UpdatedAuthStatus = { type: 'TOGGLED_GOOGLE_SIGNIN' }
 
 export type AnyAction =
+  Init |
   AuthGoogle |
   AuthedGoogle |
   ToggleGoogleSignin |
