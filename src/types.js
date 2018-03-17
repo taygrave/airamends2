@@ -14,6 +14,8 @@ export type AuthGoogle = { type: 'AUTH_GOOGLE' }
 
 export type AuthedGoogle = { type: 'AUTHED_GOOGLE' }
 
+export type InitGoogle = { type: 'INIT_GOOGLE' }
+
 export type ToggleGoogleSignin = { type: 'TOGGLE_GOOGLE_SIGNIN' }
 
 export type UpdatedAuthStatus = { type: 'TOGGLED_GOOGLE_SIGNIN' }
@@ -22,6 +24,7 @@ export type AnyAction =
   Init |
   AuthGoogle |
   AuthedGoogle |
+  InitGoogle |
   ToggleGoogleSignin |
   UpdatedAuthStatus
 

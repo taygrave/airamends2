@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import {
   authGoogle,
+  initGoogle,
   toggleGoogleSignin
 } from '../actions'
 import {
@@ -13,12 +14,21 @@ import {
 
 type Props = {
   authGoogle: typeof authGoogle,
+  initGoogle: typeof initGoogle,
   isAuthedGoogle: boolean,
   isSignedInToGoogle: boolean,
   toggleGoogleSignin: typeof toggleGoogleSignin
 }
 
 class HomePage extends Component<Props> {
+  componentWillMount () {
+    const {
+      initGoogle
+    } = this.props
+
+    initGoogle()
+  }
+
   handleAuthClick = () => {
     const {
       authGoogle,
@@ -67,6 +77,7 @@ export default connect(
   }),
   {
     authGoogle,
+    initGoogle,
     toggleGoogleSignin
   }
 )(HomePage)

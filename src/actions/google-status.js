@@ -4,22 +4,29 @@ import gapi from 'gapi-client'
 
 import type { AnyAction, State } from '../types'
 
-export const authGoogle = () => (dispatch: Dispatch<AnyAction>) =>
-dispatch({ type: 'AUTH_GOOGLE' })
+export const initGoogle = () => (dispatch: Dispatch<AnyAction>) =>
+dispatch({ type: 'INIT_GOOGLE' })
+
+export const authGoogle = () => async (dispatch: Dispatch<AnyAction>) => {
+  dispatch({ type: 'AUTH_GOOGLE' })
+  await gapi.auth2.getAuthInstance().signIn()
+
+  dispatch(authedGoogle())
+}
 
 export const authedGoogle = () => (dispatch: Dispatch<AnyAction>) =>
 dispatch({ type: 'AUTHED_GOOGLE' })
 
 export const toggleGoogleSignin = () =>
-(dispatch: Dispatch<AnyAction>, getState: () => State) => {
+async (dispatch: Dispatch<AnyAction>, getState: () => State) => {
   dispatch({ type: 'TOGGLE_GOOGLE_SIGNIN' })
   const { googleStatus: { isSignedIn } } = getState()
 
   try {
     if (isSignedIn) {
-      gapi.auth2.getAuthInstance().signOut()
+      await gapi.auth2.getAuthInstance().signOut()
     } else {
-      gapi.auth2.getAuthInstance().signIn()
+      await gapi.auth2.getAuthInstance().signIn()
     }
 
     dispatch(toggledGoogleSignin())

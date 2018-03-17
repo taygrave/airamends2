@@ -26,28 +26,17 @@ export default ((store) => (next) => (action) => {
         clientId: googleClientId,
         scope: googleScopes
       })
+      const googleAuth = gapi.auth2.getAuthInstance()
       // Listen for sign-in state changes.
-      gapi.auth2.getAuthInstance().isSignedIn.listen((toggleGoogleSignin))
-
-      // Handle the initial sign-in state.
-      gapi.auth2.getAuthInstance().signIn()
-
-      // TODO: read google docs to figure out how to make sure this
-      // doesn't dispath until actually definitely authed
-      store.dispatch({ type: 'AUTHED_GOOGLE' })
+      googleAuth.isSignedIn.listen((toggleGoogleSignin))
     } catch (e) {
       console.log('ERROR', e)
     }
   }
 
-  switch (action.type) {
-    case 'AUTH_GOOGLE': {
-      if (!isAuthed) {
-        gapi.load('client:auth2', initializeGoogle)
-      }
-      return result
-    }
-    default:
-      return result
+  if (action.type === 'INIT_GOOGLE' && !isAuthed) {
+    gapi.load('client:auth2', initializeGoogle)
   }
+
+  return result
 }: Middleware<State, AnyAction>)

@@ -9,6 +9,7 @@ import { Unconnected as HomePage } from '../../src/components/home-page'
 describe('HomePage', () => {
   const defaultActions = {
     authGoogle: (() => {}: any),
+    initGoogle: (() => {}: any),
     toggleGoogleSignin: (() => {}: any)
   }
 
@@ -30,6 +31,13 @@ describe('HomePage', () => {
 
     const buttonText = wrapper.find('.btn').text()
     assert.equal(buttonText, 'Authorize')
+  })
+
+  it('calls initGoogle on componentWillMount', () => {
+    const initGoogle = sinon.spy()
+    render({ initGoogle })
+
+    assert(initGoogle.calledOnce)
   })
 
   it('renders correct button text when authed but signed out', () => {

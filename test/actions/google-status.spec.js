@@ -16,6 +16,16 @@ describe('Actions: Google Status', () => {
   describe.skip('google API actions, to be proxquired', () => {
     // TODO: Figure out how to mock gapi and implement following tests
     // https://facebook.github.io/jest/docs/en/manual-mocks.html
+    it('authGoogle() dispatches', async () => {
+      const store = mockStore({})
+      const expected = [
+        { type: 'AUTH_GOOGLE' }
+      ]
+
+      await store.dispatch(authGoogle())
+      assert.deepEqual(expected, store.getActions())
+    })
+
     it('toggleGoogleSignin() dispatches, makes correct gapi call, and toggles signin', async () => {
       // TODO: stub out gapi calls and make this test pass
       const store = mockStore({})
@@ -42,16 +52,6 @@ describe('Actions: Google Status', () => {
   })
 
   describe('other actions', () => {
-    it('authGoogle() dispatches', async () => {
-      const store = mockStore({})
-      const expected = [
-        { type: 'AUTH_GOOGLE' }
-      ]
-
-      await store.dispatch(authGoogle())
-      assert.deepEqual(expected, store.getActions())
-    })
-
     it('authedGoogle() dispatches', async () => {
       const store = mockStore({})
       const expected = [
