@@ -13,57 +13,63 @@ import {
 const mockStore = configureStore([ thunk ])
 
 describe('Actions: Google Status', () => {
-  it('authGoogle() dispatches', async () => {
-    const store = mockStore({})
-    const expected = [
-      { type: 'AUTH_GOOGLE' }
-    ]
+  describe.skip('google API actions, to be proxquired', () => {
+    // TODO: Figure out how to mock gapi and implement following tests
+    // https://facebook.github.io/jest/docs/en/manual-mocks.html
+    it('toggleGoogleSignin() dispatches, makes correct gapi call, and toggles signin', async () => {
+      // TODO: stub out gapi calls and make this test pass
+      const store = mockStore({})
+      const expected = [
+        { type: 'TOGGLE_GOOGLE_SIGNIN' },
+        { type: 'TOGGLED_GOOGLE_SIGNIN' }
+      ]
 
-    await store.dispatch(authGoogle())
-    assert.deepEqual(expected, store.getActions())
+      await store.dispatch(toggleGoogleSignin())
+      assert.deepEqual(expected, store.getActions())
+    })
+
+    it('toggleGoogleSignin() dispatches, makes correct gapi call, and toggles signin', async () => {
+      // TODO: stub out gapi calls and make this test pass
+      const store = mockStore({})
+      const expected = [
+        { type: 'TOGGLE_GOOGLE_SIGNIN' },
+        { type: 'TOGGLED_GOOGLE_SIGNIN' }
+      ]
+
+      await store.dispatch(toggleGoogleSignin())
+      assert.deepEqual(expected, store.getActions())
+    })
   })
 
-  it('authedGoogle() dispatches', async () => {
-    const store = mockStore({})
-    const expected = [
-      { type: 'AUTHED_GOOGLE' }
-    ]
+  describe('other actions', () => {
+    it('authGoogle() dispatches', async () => {
+      const store = mockStore({})
+      const expected = [
+        { type: 'AUTH_GOOGLE' }
+      ]
 
-    await store.dispatch(authedGoogle())
-    assert.deepEqual(expected, store.getActions())
-  })
+      await store.dispatch(authGoogle())
+      assert.deepEqual(expected, store.getActions())
+    })
 
-  it.skip('toggleGoogleSignin() dispatches, makes correct gapi call, and toggles signin', async () => {
-    // TODO: stub out gapi calls and make this test pass
-    const store = mockStore({})
-    const expected = [
-      { type: 'TOGGLE_GOOGLE_SIGNIN' },
-      { type: 'TOGGLED_GOOGLE_SIGNIN' }
-    ]
+    it('authedGoogle() dispatches', async () => {
+      const store = mockStore({})
+      const expected = [
+        { type: 'AUTHED_GOOGLE' }
+      ]
 
-    await store.dispatch(toggleGoogleSignin())
-    assert.deepEqual(expected, store.getActions())
-  })
+      await store.dispatch(authedGoogle())
+      assert.deepEqual(expected, store.getActions())
+    })
 
-  it.skip('toggleGoogleSignin() dispatches, makes correct gapi call, and toggles signin', async () => {
-    // TODO: stub out gapi calls and make this test pass
-    const store = mockStore({})
-    const expected = [
-      { type: 'TOGGLE_GOOGLE_SIGNIN' },
-      { type: 'TOGGLED_GOOGLE_SIGNIN' }
-    ]
+    it('toggledGoogleSignin() dispatches', async () => {
+      const store = mockStore({})
+      const expected = [
+        { type: 'TOGGLED_GOOGLE_SIGNIN' }
+      ]
 
-    await store.dispatch(toggleGoogleSignin())
-    assert.deepEqual(expected, store.getActions())
-  })
-
-  it('toggledGoogleSignin() dispatches', async () => {
-    const store = mockStore({})
-    const expected = [
-      { type: 'TOGGLED_GOOGLE_SIGNIN' }
-    ]
-
-    await store.dispatch(toggledGoogleSignin())
-    assert.deepEqual(expected, store.getActions())
+      await store.dispatch(toggledGoogleSignin())
+      assert.deepEqual(expected, store.getActions())
+    })
   })
 })
