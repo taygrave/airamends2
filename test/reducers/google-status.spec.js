@@ -1,46 +1,67 @@
 // @flow
 import assert from 'assert'
 
-import reducer from '../../src/reducers/google-status'
+import reducer, {
+  getAuthStatus,
+  getSigninStatus
+} from '../../src/reducers/google-status'
 
-describe('Google Status reducer', () => {
+describe('Google Status', () => {
   const initialState = {
     isAuthed: false,
     isSignedIn: false
   }
 
-  it('should return the initial state on @@INIT', () => {
-    assert.deepEqual(
-      reducer(undefined, { type: '@@INIT' }),
-      initialState
-    )
+  describe('selectors', () => {
+    it('getAuthStatus', () => {
+      assert.deepEqual(
+        getAuthStatus(initialState),
+        false
+      )
+    })
+
+    it('getSigninStatus', () => {
+      assert.deepEqual(
+        getSigninStatus(initialState),
+        false
+      )
+    })
   })
 
-  it('should auth on AUTHED_GOOGLE', () => {
-    const expected = {
-      isAuthed: true,
-      isSignedIn: true
-    }
+  describe('reducer', () => {
+    it('should return the initial state on @@INIT', () => {
+      assert.deepEqual(
+        reducer(undefined, { type: '@@INIT' }),
+        initialState
+      )
+    })
 
-    assert.deepEqual(
-      reducer(initialState, { type: 'AUTHED_GOOGLE' }),
-      expected
-    )
-  })
+    it('should auth on AUTHED_GOOGLE', () => {
+      const expected = {
+        isAuthed: true,
+        isSignedIn: true
+      }
 
-  it('should toggle signin status on TOGGLED_GOOGLE_SIGNIN', () => {
-    const previousState = {
-      isAuthed: true,
-      isSignedIn: true
-    }
-    const expected = {
-      isAuthed: true,
-      isSignedIn: false
-    }
+      assert.deepEqual(
+        reducer(initialState, { type: 'AUTHED_GOOGLE' }),
+        expected
+      )
+    })
 
-    assert.deepEqual(
-      reducer(previousState, { type: 'TOGGLED_GOOGLE_SIGNIN' }),
-      expected
-    )
+    it('should toggle signin status on TOGGLED_GOOGLE_SIGNIN', () => {
+      const previousState = {
+        isAuthed: true,
+        isSignedIn: true
+      }
+      const expected = {
+        isAuthed: true,
+        isSignedIn: false
+      }
+
+      assert.deepEqual(
+        reducer(previousState, { type: 'TOGGLED_GOOGLE_SIGNIN' }),
+        expected
+      )
+    })
   })
 })
