@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
 
-import App from './App'
+import App from './app'
 
 type Props = {
   store: Object,

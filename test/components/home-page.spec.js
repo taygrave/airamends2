@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import sinon from 'sinon'
 
-import { Unconnected as HomePage } from '../../src/components/HomePage'
+import { Unconnected as HomePage } from '../../src/components/home-page'
 
 describe('HomePage', () => {
   const defaultActions = {

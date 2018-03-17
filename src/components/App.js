@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 import { Switch, NavLink, Route } from 'react-router-dom'
 
-import HomePage from './HomePage'
-import NotFoundPage from './NotFoundPage'
+import HomePage from './home-page'
+import NotFoundPage from './not-found-page'
 
 import type { Element } from '../types'
 
