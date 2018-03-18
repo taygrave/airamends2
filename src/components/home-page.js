@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import AuthButton from './auth-button'
 import {
   authGoogle,
   initGoogle,
@@ -29,40 +30,11 @@ class HomePage extends Component<Props> {
     initGoogle()
   }
 
-  handleAuthClick = () => {
-    const {
-      authGoogle,
-      isAuthedGoogle,
-      toggleGoogleSignin
-    } = this.props
-
-    if (isAuthedGoogle) {
-      toggleGoogleSignin()
-    } else {
-      authGoogle()
-    }
-  }
-
   render () {
-    const {
-      isAuthedGoogle,
-      isSignedInToGoogle
-    } = this.props
-
     return (
       <div className='home'>
         <h1>Air Amends 2</h1>
-        <button
-          className='btn'
-          onClick={this.handleAuthClick}
-        >
-          {!isAuthedGoogle
-            ? 'Authorize'
-            : isSignedInToGoogle
-              ? 'Sign Out'
-              : 'Sign In'
-          }
-        </button>
+        <AuthButton {...this.props} />
       </div>
     )
   }

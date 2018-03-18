@@ -5,6 +5,7 @@ import React from 'react'
 import sinon from 'sinon'
 
 import { Unconnected as HomePage } from '../../src/components/home-page'
+import AuthButton from '../../src/components/auth-button'
 
 describe('HomePage', () => {
   const defaultActions = {
@@ -27,10 +28,7 @@ describe('HomePage', () => {
   it('renders w/ defaults', () => {
     const wrapper = render()
     assert(wrapper.find('.home').exists())
-    assert(wrapper.find('.btn').exists())
-
-    const buttonText = wrapper.find('.btn').text()
-    assert.equal(buttonText, 'Authorize')
+    assert(wrapper.find(AuthButton).exists())
   })
 
   it('calls initGoogle on componentWillMount', () => {
@@ -38,58 +36,5 @@ describe('HomePage', () => {
     render({ initGoogle })
 
     assert(initGoogle.calledOnce)
-  })
-
-  it('renders correct button text when authed but signed out', () => {
-    const props = {
-      isAuthedGoogle: true,
-      isSignedInToGoogle: false
-    }
-    const wrapper = render(props)
-    assert(wrapper.find('.home').exists())
-
-    const buttonText = wrapper.find('.btn').text()
-    assert.equal(buttonText, 'Sign In')
-  })
-
-  it('renders correct button text when signed in', () => {
-    const props = {
-      isAuthedGoogle: true,
-      isSignedInToGoogle: true
-    }
-    const wrapper = render(props)
-    assert(wrapper.find('.home').exists())
-
-    const buttonText = wrapper.find('.btn').text()
-    assert.equal(buttonText, 'Sign Out')
-  })
-
-  it('onClick of button calls authGoogle() if not authed', () => {
-    const authGoogle = sinon.spy()
-    const toggleGoogleSignin = sinon.spy()
-    const wrapper = render({ authGoogle, toggleGoogleSignin })
-    assert(wrapper.find('.home').exists())
-
-    const button = wrapper.find('.btn')
-    button.simulate('click')
-    assert(authGoogle.calledOnce)
-    assert(toggleGoogleSignin.notCalled)
-  })
-
-  it('onClick of button calls toggleGoogleSignin() if authed', () => {
-    const authGoogle = sinon.spy()
-    const toggleGoogleSignin = sinon.spy()
-    const props = {
-      isAuthedGoogle: true,
-      authGoogle,
-      toggleGoogleSignin
-    }
-    const wrapper = render(props)
-    assert(wrapper.find('.home').exists())
-
-    const button = wrapper.find('.btn')
-    button.simulate('click')
-    assert(authGoogle.notCalled)
-    assert(toggleGoogleSignin.calledOnce)
   })
 })
