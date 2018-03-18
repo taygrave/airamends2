@@ -1,12 +1,13 @@
 /* Variables */
-$vin-blue: #5bb7db;
-$vin-green: #60b044;
-$vin-red: #ff0000;
+$blue: #54A5C3;
+$green: #9ABB29;
+$orange: #FF9800;
 
 .home {
-	color: $vin-blue;
+	color: $blue;
+	margin-left: 12px;
 }
 
-  .btn {
-    background-color: yellow;
-  }
+	.auth-button {
+		min-width: 90px
+	}

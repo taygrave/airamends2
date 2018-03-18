@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
 import {
   authGoogle,
@@ -13,39 +14,15 @@ type Props = {
   toggleGoogleSignin: typeof toggleGoogleSignin
 }
 
-const AuthButton = (props: Props) => {
-  const {
-    isAuthedGoogle,
-    isSignedInToGoogle
-  } = props
-
-  const handleAuthClick = () => {
-    const {
-      authGoogle,
-      isAuthedGoogle,
-      toggleGoogleSignin
-    } = props
-
-    if (isAuthedGoogle) {
-      toggleGoogleSignin()
-    } else {
-      authGoogle()
-    }
-  }
-
-  return (
-    <button
-      className='btn'
-      onClick={handleAuthClick}
-    >
-      {!isAuthedGoogle
-        ? 'Authorize'
-        : isSignedInToGoogle
-          ? 'Sign Out'
-          : 'Sign In'
-      }
-    </button>
-  )
-}
+const AuthButton = ({
+  authGoogle,
+  isAuthedGoogle,
+  isSignedInToGoogle,
+  toggleGoogleSignin
+}: Props) => !isAuthedGoogle
+  ? <Button className='auth-button' bsStyle='info' onClick={authGoogle}>Authorize</Button>
+  : isSignedInToGoogle
+    ? <Button className='auth-button' bsStyle='danger' onClick={toggleGoogleSignin}>Sign Out</Button>
+    : <Button className='auth-button' bsStyle='success' onClick={toggleGoogleSignin}>Sign In</Button>
 
 export default AuthButton

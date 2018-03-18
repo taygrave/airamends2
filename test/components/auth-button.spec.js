@@ -2,6 +2,7 @@
 import assert from 'assert'
 import { shallow } from 'enzyme'
 import React from 'react'
+import { Button } from 'react-bootstrap'
 import sinon from 'sinon'
 
 import AuthButton from '../../src/components/auth-button'
@@ -25,41 +26,44 @@ describe('AuthButton', () => {
 
   it('renders w/ defaults', () => {
     const wrapper = render()
-    const button = wrapper.find('.btn')
+    const button = wrapper.find(Button)
 
     assert(button.exists())
-    assert.equal(button.text(), 'Authorize')
+    assert.equal(button.props().bsStyle, 'info')
+    assert.equal(button.props().children, 'Authorize')
   })
 
-  it('renders correct button text when authed but signed out', () => {
+  it('renders correct Button when authed but signed out', () => {
     const props = {
       isAuthedGoogle: true,
       isSignedInToGoogle: false
     }
     const wrapper = render(props)
-    const button = wrapper.find('.btn')
+    const button = wrapper.find(Button)
 
     assert(button.exists())
-    assert.equal(button.text(), 'Sign In')
+    assert.equal(button.props().bsStyle, 'success')
+    assert.equal(button.props().children, 'Sign In')
   })
 
-  it('renders correct button text when signed in', () => {
+  it('renders correct Button when signed in', () => {
     const props = {
       isAuthedGoogle: true,
       isSignedInToGoogle: true
     }
     const wrapper = render(props)
-    const button = wrapper.find('.btn')
+    const button = wrapper.find(Button)
 
     assert(button.exists())
-    assert.equal(button.text(), 'Sign Out')
+    assert.equal(button.props().bsStyle, 'danger')
+    assert.equal(button.props().children, 'Sign Out')
   })
 
   it('onClick of button calls authGoogle() if not authed', () => {
     const authGoogle = sinon.spy()
     const toggleGoogleSignin = sinon.spy()
     const wrapper = render({ authGoogle, toggleGoogleSignin })
-    const button = wrapper.find('.btn')
+    const button = wrapper.find(Button)
 
     assert(button.exists())
     button.simulate('click')
@@ -76,7 +80,7 @@ describe('AuthButton', () => {
       toggleGoogleSignin
     }
     const wrapper = render(props)
-    const button = wrapper.find('.btn')
+    const button = wrapper.find(Button)
 
     assert(button.exists())
     button.simulate('click')
