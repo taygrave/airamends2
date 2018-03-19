@@ -5,9 +5,18 @@ $orange: #FF9800;
 
 .home {
 	color: $blue;
-	margin-left: 12px;
+	margin: 12px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
 }
-
 	.auth-button {
 		min-width: 90px
+	}
+
+	.user-info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
 	}

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import AuthButton from './auth-button'
+import UserInfo from './user-info'
 import {
   authGoogle,
   initGoogle,
@@ -13,8 +14,11 @@ import {
   getSigninStatus
 } from '../selectors'
 
+import type { GoogleUser } from '../types'
+
 type Props = {
   authGoogle: typeof authGoogle,
+  googleUser: GoogleUser | {},
   initGoogle: typeof initGoogle,
   isAuthedGoogle: boolean,
   isSignedInToGoogle: boolean,
@@ -31,10 +35,21 @@ class HomePage extends Component<Props> {
   }
 
   render () {
+    const {
+      googleUser,
+      isSignedInToGoogle
+    } = this.props
+
     return (
       <div className='home'>
-        <h1>Air Amends 2</h1>
-        <AuthButton {...this.props} />
+        <div>
+          <h1>Air Amends 2</h1>
+          <AuthButton {...this.props} />
+        </div>
+        {isSignedInToGoogle
+          ? <UserInfo {...googleUser} />
+          : null
+        }
       </div>
     )
   }
@@ -44,6 +59,7 @@ export const Unconnected = HomePage
 
 export default connect(
   (state) => ({
+    googleUser: state.googleUser,
     isAuthedGoogle: getAuthStatus(state),
     isSignedInToGoogle: getSigninStatus(state)
   }),
