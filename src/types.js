@@ -16,6 +16,15 @@ export type AuthedGoogle = { type: 'AUTHED_GOOGLE' }
 
 export type InitGoogle = { type: 'INIT_GOOGLE' }
 
+export type ReceivedGoogleUser = {
+  type: 'RECEIVED_GOOGLE_USER',
+  avatarUrl: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  name: string
+}
+
 export type ToggleGoogleSignin = { type: 'TOGGLE_GOOGLE_SIGNIN' }
 
 export type UpdatedAuthStatus = { type: 'TOGGLED_GOOGLE_SIGNIN' }
@@ -25,6 +34,7 @@ export type AnyAction =
   AuthGoogle |
   AuthedGoogle |
   InitGoogle |
+  ReceivedGoogleUser |
   ToggleGoogleSignin |
   UpdatedAuthStatus
 
@@ -32,6 +42,14 @@ export type AnyAction =
 export type GoogleAuthStatusState = {
   isAuthed: boolean,
   isSignedIn: boolean
+}
+
+export type GoogleUserState = {
+  avatarUrl?: string,
+  email?: string,
+  firstName?: string,
+  lastName?: string,
+  name?: string
 }
 
 export type State = {

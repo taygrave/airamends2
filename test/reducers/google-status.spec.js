@@ -6,7 +6,7 @@ import reducer, {
   getSigninStatus
 } from '../../src/reducers/google-status'
 
-describe('Google Status', () => {
+describe('Reducers: Google Status', () => {
   const initialState = {
     isAuthed: false,
     isSignedIn: false

@@ -2,11 +2,13 @@
 import { combineReducers } from 'redux'
 
 import googleStatus, * as fromGoogleStatus from './google-status'
+import googleUser from './google-user'
 
 import { type State } from '../types'
 
 const rootReducer = combineReducers({
-  googleStatus
+  googleStatus,
+  googleUser
 })
 
 export default rootReducer

@@ -2,6 +2,8 @@
 /* globals Dispatch */
 import gapi from 'gapi-client'
 
+import { fetchGoogleUser } from './google-user'
+
 import type { AnyAction, State } from '../types'
 
 export const initGoogle = () => (dispatch: Dispatch<AnyAction>) =>
@@ -9,13 +11,14 @@ dispatch({ type: 'INIT_GOOGLE' })
 
 export const authGoogle = () => async (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: 'AUTH_GOOGLE' })
-  await gapi.auth2.getAuthInstance().signIn()
-
-  dispatch(authedGoogle())
+  try {
+    await gapi.auth2.getAuthInstance().signIn()
+    dispatch({ type: 'AUTHED_GOOGLE' })
+    dispatch(fetchGoogleUser())
+  } catch (e) {
+    console.log('AUTH ERROR', e)
+  }
 }
-
-export const authedGoogle = () => (dispatch: Dispatch<AnyAction>) =>
-dispatch({ type: 'AUTHED_GOOGLE' })
 
 export const toggleGoogleSignin = () =>
 async (dispatch: Dispatch<AnyAction>, getState: () => State) => {
@@ -29,11 +32,8 @@ async (dispatch: Dispatch<AnyAction>, getState: () => State) => {
       await gapi.auth2.getAuthInstance().signIn()
     }
 
-    dispatch(toggledGoogleSignin())
+    dispatch({ type: 'TOGGLED_GOOGLE_SIGNIN' })
   } catch (e) {
-    console.log('ERROR', e)
+    console.log('TOGGLE SIGN ON ERROR', e)
   }
 }
-
-export const toggledGoogleSignin = () => (dispatch: Dispatch<AnyAction>) =>
-dispatch({ type: 'TOGGLED_GOOGLE_SIGNIN' })

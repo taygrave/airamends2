@@ -5,9 +5,7 @@ import thunk from 'redux-thunk'
 
 import {
   authGoogle,
-  authedGoogle,
-  toggleGoogleSignin,
-  toggledGoogleSignin
+  toggleGoogleSignin
 } from '../../src/actions'
 
 const mockSignIn = jest.fn()
@@ -20,6 +18,14 @@ jest.mock('gapi-client', () => {
         signOut: mockSignOut
       })
     }
+  }
+})
+
+jest.mock('../../src/actions/google-user', () => {
+  return {
+    fetchGoogleUser: () => ({
+      type: 'MOCK_FETCH_GOOGLE_USER'
+    })
   }
 })
 
@@ -42,20 +48,11 @@ describe('Actions: Google Status', () => {
     const store = mockStore({})
     const expected = [
       { type: 'AUTH_GOOGLE' },
-      { type: 'AUTHED_GOOGLE' }
+      { type: 'AUTHED_GOOGLE' },
+      { type: 'MOCK_FETCH_GOOGLE_USER' }
     ]
 
     await store.dispatch(authGoogle())
-    assert.deepEqual(expected, store.getActions())
-  })
-
-  it('authedGoogle() dispatches', async () => {
-    const store = mockStore({})
-    const expected = [
-      { type: 'AUTHED_GOOGLE' }
-    ]
-
-    await store.dispatch(authedGoogle())
     assert.deepEqual(expected, store.getActions())
   })
 
@@ -88,15 +85,5 @@ describe('Actions: Google Status', () => {
     assert.deepEqual(expected, store.getActions())
     assert.equal(mockSignIn.mock.calls.length, 0)
     assert.equal(mockSignOut.mock.calls.length, 1)
-  })
-
-  it('toggledGoogleSignin() dispatches', async () => {
-    const store = mockStore({})
-    const expected = [
-      { type: 'TOGGLED_GOOGLE_SIGNIN' }
-    ]
-
-    await store.dispatch(toggledGoogleSignin())
-    assert.deepEqual(expected, store.getActions())
   })
 })
