@@ -2,7 +2,6 @@
 import gapi from 'gapi-client'
 import { type Middleware } from 'redux'
 
-import { toggleGoogleSignin } from '../actions/google-status'
 import {
   googleClientId,
   googleDiscoveryDocs,
@@ -18,7 +17,6 @@ export default ((store) => (next) => (action) => {
   const result = next(action)
   const state = store.getState()
   const { googleStatus: { isAuthed } } = state
-
   const initializeGoogle = async () => {
     try {
       await gapi.client.init({
@@ -26,9 +24,6 @@ export default ((store) => (next) => (action) => {
         clientId: googleClientId,
         scope: googleScopes
       })
-      const googleAuth = gapi.auth2.getAuthInstance()
-      // Listen for sign-in state changes.
-      googleAuth.isSignedIn.listen((toggleGoogleSignin))
     } catch (e) {
       console.log('ERROR', e)
     }

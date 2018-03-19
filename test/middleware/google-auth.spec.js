@@ -5,11 +5,15 @@ import configureStore from 'redux-mock-store'
 import middleware from '../../src/middleware/google-auth'
 
 const mockLoad = jest.fn()
+const mockInit = jest.fn()
 jest.mock('gapi-client', () => ({
+  client: {
+    init: (params) => mockInit(params)
+  },
   load: (lib, fn) => mockLoad(lib, fn)
 }))
 
-describe('Google Auth Middleware', () => {
+describe('Middleware: Google Auth', () => {
   const defaultState = {
     googleStatus: {
       isAuthed: false,
@@ -24,6 +28,7 @@ describe('Google Auth Middleware', () => {
 
   afterEach(() => {
     mockLoad.mockClear()
+    mockInit.mockClear()
   })
 
   it('should return the next action', () => {
@@ -47,6 +52,20 @@ describe('Google Auth Middleware', () => {
     assert.equal(mockLoad.mock.calls.length, 1)
     assert.equal(mockLoad.mock.calls[0][0], 'client:auth2')
     assert.equal(typeof mockLoad.mock.calls[0][1], 'function')
+  })
+
+  it('should init on initializeGoogle()', () => {
+    const store = createStore(defaultState)
+    const action = { type: 'INIT_GOOGLE' }
+
+    assert.equal(
+      store.dispatch(action),
+      action
+    )
+    // manually call the initializeGoogle() function via the mock
+    mockLoad.mock.calls[0][1]()
+    assert.equal(mockInit.mock.calls.length, 1)
+    assert.equal(typeof mockInit.mock.calls[0], 'object')
   })
 
   it('should not load the gapi-client if not INIT_GOOGLE action', () => {
