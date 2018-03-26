@@ -6,17 +6,21 @@ $orange: #FF9800;
 .home {
 	color: $blue;
 	margin: 12px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: flex-start;
 }
-	.auth-button {
-		min-width: 90px
+
+	.header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
 	}
 
-	.user-info {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-	}
+		.auth-btn {
+			min-width: 90px
+		}
+
+		.user-info {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+		}

@@ -2,10 +2,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import AuthButton from './auth-button'
-import UserInfo from './user-info'
+import Header from './header'
+import GmailPage from './gmail-page'
 import {
   authGoogle,
+  fetchEmails,
   initGoogle,
   toggleGoogleSignin
 } from '../actions'
@@ -16,8 +17,9 @@ import {
 
 import type { GoogleUser } from '../types'
 
-type Props = {
+export type HomeProps = {
   authGoogle: typeof authGoogle,
+  fetchEmails: typeof fetchEmails,
   googleUser: GoogleUser | {},
   initGoogle: typeof initGoogle,
   isAuthedGoogle: boolean,
@@ -25,7 +27,7 @@ type Props = {
   toggleGoogleSignin: typeof toggleGoogleSignin
 }
 
-class HomePage extends Component<Props> {
+class HomePage extends Component<HomeProps> {
   componentWillMount () {
     const {
       initGoogle
@@ -35,19 +37,13 @@ class HomePage extends Component<Props> {
   }
 
   render () {
-    const {
-      googleUser,
-      isSignedInToGoogle
-    } = this.props
+    const { isSignedInToGoogle } = this.props
 
     return (
       <div className='home'>
-        <div>
-          <h1>Air Amends 2</h1>
-          <AuthButton {...this.props} />
-        </div>
+        <Header {...this.props} />
         {isSignedInToGoogle
-          ? <UserInfo {...googleUser} />
+          ? <GmailPage {...this.props} />
           : null
         }
       </div>
@@ -65,6 +61,7 @@ export default connect(
   }),
   {
     authGoogle,
+    fetchEmails,
     initGoogle,
     toggleGoogleSignin
   }
