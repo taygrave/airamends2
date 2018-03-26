@@ -19,7 +19,7 @@ export type GoogleUser = {
 export type Init = { type: '@@INIT' }
 export type AuthedGoogle = { type: 'AUTHED_GOOGLE' }
 export type ReceivedGoogleUser = GoogleUser & {
-  type: 'RECEIVED_GOOGLE_USER'
+  type: 'FETCHED_GOOGLE_USER'
 }
 export type ToggledGoogleSignin = { type: 'TOGGLED_GOOGLE_SIGNIN' }
 

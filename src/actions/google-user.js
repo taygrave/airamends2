@@ -24,7 +24,7 @@ export const fetchGoogleUser = () => async (dispatch: Dispatch<AnyAction>) => {
   ])
 
   dispatch({
-    type: 'RECEIVED_GOOGLE_USER',
+    type: 'FETCHED_GOOGLE_USER',
     avatarUrl,
     email,
     firstName,

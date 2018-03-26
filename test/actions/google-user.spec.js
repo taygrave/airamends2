@@ -40,7 +40,7 @@ describe('Actions: Google User', () => {
     const expected = [
       { type: 'FETCH_GOOGLE_USER' },
       {
-        type: 'RECEIVED_GOOGLE_USER',
+        type: 'FETCHED_GOOGLE_USER',
         ...mockUser
       }
     ]

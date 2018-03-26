@@ -20,9 +20,9 @@ const AuthButton = ({
   isSignedInToGoogle,
   toggleGoogleSignin
 }: Props) => !isAuthedGoogle
-  ? <Button className='auth-button' bsStyle='info' onClick={authGoogle}>Authorize</Button>
+  ? <Button className='auth-btn' bsStyle='info' onClick={authGoogle}>Authorize</Button>
   : isSignedInToGoogle
-    ? <Button className='auth-button' bsStyle='danger' onClick={toggleGoogleSignin}>Sign Out</Button>
-    : <Button className='auth-button' bsStyle='success' onClick={toggleGoogleSignin}>Sign In</Button>
+    ? <Button className='auth-btn' bsStyle='danger' onClick={toggleGoogleSignin}>Sign Out</Button>
+    : <Button className='auth-btn' bsStyle='success' onClick={toggleGoogleSignin}>Sign In</Button>
 
 export default AuthButton

@@ -13,7 +13,7 @@ describe('Reducers: Google User', () => {
     )
   })
 
-  it('should set the user on RECEIVED_GOOGLE_USER', () => {
+  it('should set the user on FETCHED_GOOGLE_USER', () => {
     const user = {
       avatarUrl: 'me.img',
       email: 'me@me.com',
@@ -22,7 +22,7 @@ describe('Reducers: Google User', () => {
       name: 'Tay Hess'
     }
     const action = {
-      type: 'RECEIVED_GOOGLE_USER',
+      type: 'FETCHED_GOOGLE_USER',
       ...user
     }
 

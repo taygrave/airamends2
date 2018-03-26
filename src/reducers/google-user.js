@@ -6,7 +6,7 @@ import {
 
 export default (state: State = {}, action: AnyAction): State => {
   switch (action.type) {
-    case 'RECEIVED_GOOGLE_USER': {
+    case 'FETCHED_GOOGLE_USER': {
       const {
         avatarUrl,
         email,
