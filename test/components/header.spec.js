@@ -2,13 +2,12 @@
 import assert from 'assert'
 import { shallow } from 'enzyme'
 import React from 'react'
-import sinon from 'sinon'
 
-import { Unconnected as HomePage } from '../../src/components/home-page'
-import GmailPage from '../../src/components/gmail-page'
+import AuthButton from '../../src/components/auth-button'
 import Header from '../../src/components/header'
+import UserInfo from '../../src/components/user-info'
 
-describe('HomePage', () => {
+describe('Header', () => {
   const defaultActions = {
     authGoogle: (() => {}: any),
     fetchEmails: (() => {}: any),
@@ -25,29 +24,22 @@ describe('HomePage', () => {
       ...props
     }
 
-    return shallow(<HomePage {...withDefaults} />)
+    return shallow(<Header {...withDefaults} />)
   }
 
   it('renders w/ defaults', () => {
     const wrapper = render()
 
-    assert(wrapper.find('.home').exists())
-    assert(wrapper.find(Header).exists())
-    assert(!wrapper.find(GmailPage).exists())
+    assert(wrapper.find('.header').exists())
+    assert(wrapper.find(AuthButton).exists())
+    assert(!wrapper.find(UserInfo).exists())
   })
 
-  it('renders w/ GmailPage if signed in', () => {
+  it('renders w/ UserInfo if signed in', () => {
     const wrapper = render({
       isSignedInToGoogle: true
     })
 
-    assert(wrapper.find(GmailPage).exists())
-  })
-
-  it('calls initGoogle on componentWillMount', () => {
-    const initGoogle = sinon.spy()
-    render({ initGoogle })
-
-    assert(initGoogle.calledOnce)
+    assert(wrapper.find(UserInfo).exists())
   })
 })

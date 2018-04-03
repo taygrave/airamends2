@@ -29,11 +29,7 @@ export type HomeProps = {
 
 class HomePage extends Component<HomeProps> {
   componentWillMount () {
-    const {
-      initGoogle
-    } = this.props
-
-    initGoogle()
+    this.props.initGoogle()
   }
 
   render () {
