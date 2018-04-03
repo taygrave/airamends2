@@ -1,12 +1,14 @@
 // @flow
 import { combineReducers } from 'redux'
 
+import googleEmails from './google-emails'
 import googleStatus, * as fromGoogleStatus from './google-status'
 import googleUser from './google-user'
 
 import { type State } from '../types'
 
 const rootReducer = combineReducers({
+  googleEmails,
   googleStatus,
   googleUser
 })

@@ -18,6 +18,13 @@ export type GoogleUser = {
 // ACTIONS
 export type Init = { type: '@@INIT' }
 export type AuthedGoogle = { type: 'AUTHED_GOOGLE' }
+export type FetchEmails = { type: 'FETCH_EMAILS' }
+export type FetchedEmails = {
+  type: 'FETCHED_EMAILS',
+  thisChunk: number,
+  totalChunks: number,
+  response: {}
+}
 export type ReceivedGoogleUser = GoogleUser & {
   type: 'FETCHED_GOOGLE_USER'
 }
@@ -26,6 +33,8 @@ export type ToggledGoogleSignin = { type: 'TOGGLED_GOOGLE_SIGNIN' }
 export type AnyAction =
   Init |
   AuthedGoogle |
+  FetchEmails |
+  FetchedEmails |
   ReceivedGoogleUser |
   ToggledGoogleSignin
 
@@ -34,6 +43,8 @@ export type GoogleAuthStatusState = {
   isAuthed: boolean,
   isSignedIn: boolean
 }
+
+export type GoogleEmailState = {}
 
 export type GoogleUserState = {} | GoogleUser
 
