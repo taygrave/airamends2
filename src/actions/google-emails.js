@@ -9,12 +9,17 @@ const { chunk } = lodash
 
 const gmailQuery = `
   from:(-me)
-  subject: hello
+  from:(-me) subject:(-fwd -re -fw -check) itinerary, confirmation, flight, number, departure, taxes
   `
-// from:(-me) subject:(-fwd -re -fw -check) itinerary, confirmation, flight, number, departure, taxes
-const gmailClient = gapi.client.gmail.users.messages
 
-const gmailRequest = ({ id }) =>
+const gmailListRequest = (gmailClient, pageToken: string) =>
+gmailClient.list({
+  userId: 'me',
+  q: gmailQuery,
+  pageToken: pageToken === 'first' ? undefined : pageToken
+})
+
+const gmailGetMessageRequest = ({ gmailClient, id }) =>
 gmailClient.get({
   userId: 'me',
   id,
@@ -23,35 +28,43 @@ gmailClient.get({
 
 export const fetchEmails = () => async (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: 'FETCH_EMAILS' })
-  const { result: { messages } } = await gmailClient.list({
-    userId: 'me',
-    q: gmailQuery
-  })
-  // TODO: figure out how to force the batches to work, might need to get messages w/ next page tokens or what not, seems to only be returning 100 max anyway
-  console.log('messages', messages);
-  // filter for those where msg_id = thread_id to ensure its the root email
-  const rootMessages = messages.filter(({id, threadId}) => id === threadId)
-  // chunk into sizes of 100 to comply w/ gmail batch request limits
-  const chunkMessages = chunk(rootMessages, 100)
-  console.log('chunks', chunkMessages);
+  const gmailClient = gapi.client.gmail.users.messages
+  let allMessages = []
+  let pageToken = 'first' // hack, initialized to make first request sans a pageToken since not needed on first request
 
-  const batch = gapi.client.newBatch()
-  for (let chunk of chunkMessages) {
-    for (let msg of chunk) {
-      batch.add(gmailRequest(msg))
+  try {
+    while (pageToken) {
+      const { result: { messages, nextPageToken } } = await gmailListRequest(
+        gmailClient, pageToken
+      )
+
+      allMessages = allMessages.concat(messages)
+      pageToken = nextPageToken
     }
 
-    try {
+    // filter where msg_id = thread_id to ensure its the root email
+    const rootMessages = allMessages.filter(({ id, threadId }) => id === threadId)
+    // chunk into sizes of 100 to comply w/ gmail batch request limits
+    const chunkMessages = chunk(rootMessages, 100)
+    const chunkLength = chunkMessages.length
+    const batch = gapi.client.newBatch()
+
+    for (let i = 0; i < chunkLength; i++) {
+      const chunk = chunkMessages[i]
+      for (let msg of chunk) {
+        batch.add(gmailGetMessageRequest({ gmailClient, id: msg.id }))
+      }
+
       await batch.execute((response) => {
-        console.log('response', response)
-        // TODO: then what about the dispatch? assuming it will dispatch multiple times, need to confirm and handle it
         dispatch({
-          type: 'FETCHED_GOOGLE_EMAILS',
+          type: 'FETCHED_EMAILS',
+          thisChunk: i + 1,
+          totalChunks: chunkLength,
           response
         })
       })
-    } catch (e) {
-      console.log('GMAIL ERROR:', e)
     }
+  } catch (e) {
+    console.log('GMAIL ERROR:', e)
   }
 }
