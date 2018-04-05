@@ -6,12 +6,14 @@ This project is the re-build of my first complete project [AirAmends](https://gi
 ## Technologies
 This app was built off the [React Slingshot](https://github.com/coryhouse/react-slingshot) starter template, which is comprised of the following notable technologies:
 - React | Redux | Babel | Webpack | Browsersync | Jest
-- [and more!](https://github.com/coryhouse/react-slingshot)
+- [and more!](https://github.com/coryhouse/react-slingshot#technologies)
 
 ### Modifications & Additions
-I modified the original starter kit to also include Flow for static type checking, to lint with Standard vs. ESLint, and to take advantage of some of the ready-made styling of React Bootstrap.
+I modified the original starter kit to lint with Standard vs. ESLint and am taking advantage of some of the ready-made styling of React Bootstrap.
 
-Furthermore, my particular project also requires:
+I added Flow to allow for static type checking.
+
+My particular project also incorporates the following APIs:
 - Google OAuth | Gmail API | MapBox
 
 ## Purpose
