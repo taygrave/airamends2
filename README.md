@@ -1,7 +1,7 @@
 #### I am currently looking for new opportunities! See more about me here: www.linkedin.com/in/thesselgrave
 
 # AIR AMENDS 2
-This project is the re-build of my first complete project [AirAmends](https://github.com/taygrave/AirAmends) built in 2015. I decided to rebuild it to highlight the new tech I've since learned in my last nearly three years as a professional web developer. Please use this repo as an example of my current coding profciency and style, as well as a comparison with the 2015 version to see how much I can learn in a few short years.  
+This project is the re-build of my first complete project, [AirAmends](https://github.com/taygrave/AirAmends) built in 2015, and highlights the new tech I've since learned in my last nearly three years as a professional web developer. Please use this repo as an example of my current coding profciency and style, as well as a testament to how quickly I can learn.
 
 ## Technologies
 This app was built off the [React Slingshot](https://github.com/coryhouse/react-slingshot) starter template, which is comprised of the following notable technologies:
