@@ -13,8 +13,7 @@ I modified the original starter kit to lint with Standard vs. ESLint and am taki
 
 I added Flow to allow for static type checking.
 
-My particular project also incorporates the following APIs:
-- Google OAuth | Gmail API | MapBox
+My project also incorporates Google OAuth to access the Gmail API and will utilize the MapBox API as well.
 
 ## Purpose
 Giving air travelers visibility into their carbon footprint. After linking their gmail, an interactive report details the user's personal air travel over the last few years and the associated social cost of the carbon emissions estimated from each flight. The user is also presented with an personal map animating their flights and is given an option to donate away their personal carbon debt to the environmental organization of their choice.
